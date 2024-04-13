@@ -1,4 +1,4 @@
-list_to_objects <- function(x, suffix = NULL, envir = parent.env(environment())){
+list_to_objects <- function(x, suffix = NULL, envir = parent.env(environment()), remove_list = F){
   stopifnot(is.list(x) | is.environment(envir))
   if(is.null(names(x))){
     names(x) <- paste0("X", 1:length(x))
@@ -12,6 +12,9 @@ list_to_objects <- function(x, suffix = NULL, envir = parent.env(environment()))
   for(i in 1:length(x)){
     assign(object_names[i], x[[list_names[i]]], envir = envir)
     message(object_names[i], " created")
+  }
+  if(remove_list){
+    rm(x)
   }
 }
 
